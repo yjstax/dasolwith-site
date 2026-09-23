@@ -46,8 +46,11 @@ if (mobileMenuBtn && nav) {
     });
 }
 
-// ===== 페이지형 화면 전환 (2026-09-24) =====
-// 메뉴를 누르면 그 부분만 보이고 나머지는 숨긴다. 파일은 하나지만 페이지가 나뉜 것처럼 보인다.
+// ===== 화면 전환 방식 (2026-09-24) =====
+// PC(폭 992px 이상): 페이지형. 메뉴를 누르면 그 부분만 보이고 나머지는 숨긴다.
+// 모바일: 원래대로 한 페이지 스크롤. 메뉴를 누르면 그 위치로 바로 이동한다.
+// PC도 스크롤 방식으로 바꾸려면 아래 PAGED_MIN_WIDTH 를 99999 로 바꾸면 된다.
+const PAGED_MIN_WIDTH = 992;
 const VIEW_GROUPS = {
     'home': ['home'],
     'about': ['about'],
@@ -58,6 +61,7 @@ const VIEW_GROUPS = {
     'directions': ['directions']
 };
 const pageSections = document.querySelectorAll('section[id]');
+const isPaged = () => window.innerWidth >= PAGED_MIN_WIDTH;
 
 function resolveView(id) {
     if (VIEW_GROUPS[id]) return id;
@@ -67,6 +71,13 @@ function resolveView(id) {
     return 'home';
 }
 
+function setNavActive(viewId) {
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + viewId);
+    });
+}
+
+// 페이지형: 해당 섹션만 보이기
 function showView(rawId, push) {
     const viewId = resolveView((rawId || '').replace('#', ''));
     const visible = VIEW_GROUPS[viewId];
@@ -78,15 +89,31 @@ function showView(rawId, push) {
         section.classList.toggle('active', visible.includes(section.id));
         section.classList.toggle('page-top', section.id === visible[0]);
     });
-
-    navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + viewId);
-    });
-
+    setNavActive(viewId);
     window.scrollTo({ top: 0, behavior: 'auto' });
 
     if (push) {
         history.pushState({ view: viewId }, '', viewId === 'home' ? location.pathname : '#' + viewId);
+    }
+}
+
+// 스크롤형: 해당 위치로 바로 이동 (헤더 높이만큼 위로 여유)
+function jumpTo(rawId) {
+    const target = document.querySelector(rawId);
+    if (!target) return;
+    const headerHeight = header ? header.offsetHeight : 80;
+    window.scrollTo({ top: target.offsetTop - headerHeight, behavior: 'auto' });
+    setNavActive(resolveView(rawId.replace('#', '')));
+}
+
+function applyMode() {
+    if (isPaged()) {
+        document.body.classList.add('paged');
+        showView(location.hash, false);
+    } else {
+        document.body.classList.remove('paged', 'view-home');
+        pageSections.forEach(section => section.classList.remove('active', 'page-top'));
+        highlightNavigation();
     }
 }
 
@@ -96,13 +123,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (targetId === '#') return;
         if (!document.querySelector(targetId)) return;
         e.preventDefault();
-        showView(targetId, true);
+        if (isPaged()) {
+            showView(targetId, true);
+        } else {
+            jumpTo(targetId);
+        }
     });
 });
 
-window.addEventListener('popstate', () => showView(location.hash, false));
-document.body.classList.add('paged');
-showView(location.hash, false);
+window.addEventListener('popstate', () => { if (isPaged()) showView(location.hash, false); });
+
+let lastPaged = null;
+window.addEventListener('resize', () => {
+    const nowPaged = isPaged();
+    if (nowPaged !== lastPaged) {
+        lastPaged = nowPaged;
+        applyMode();
+    }
+});
 
 // ===== 스크롤 애니메이션 =====
 const observerOptions = {
@@ -194,8 +232,24 @@ statNumbers.forEach(stat => {
     statObserver.observe(stat);
 });
 
-// ===== 활성 메뉴 표시 =====
-// 페이지형 전환에서는 showView()가 메뉴 활성 상태를 정한다. 스크롤 위치로 바꾸지 않는다.
+// ===== 활성 메뉴 표시 (스크롤형에서만 스크롤 위치로 판단) =====
+const highlightNavigation = () => {
+    if (isPaged()) return;   // 페이지형에서는 showView()가 정한다
+    const scrollY = window.pageYOffset;
+    let currentSection = '';
+    pageSections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (scrollY >= sectionTop && scrollY < sectionTop + section.offsetHeight) {
+            currentSection = section.getAttribute('id');
+        }
+    });
+    setNavActive(resolveView(currentSection));
+};
+window.addEventListener('scroll', highlightNavigation);
+
+// 초기 적용 (highlightNavigation 정의 뒤에 실행)
+lastPaged = isPaged();
+applyMode();
 
 // ===== FAQ 아코디언 =====
 document.addEventListener('DOMContentLoaded', () => {
