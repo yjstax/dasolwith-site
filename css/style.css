@@ -606,6 +606,171 @@ body.paged section.active.page-top:not(.hero) {
 }
 
 
+/* ===== 담당세무사 (2026-09-24) ===== */
+.staff-detail {
+    margin-top: 60px;
+}
+
+.staff-detail h3,
+.books-detail h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.staff-card {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 30px;
+    align-items: center;
+    background: var(--bg-light);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.staff-photo {
+    width: 180px;
+    height: 220px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 4px solid white;
+    background: white;
+}
+
+.staff-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 사진이 아직 없을 때: 로고 마크를 작게 가운데에 */
+.staff-photo-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f4f7fb, #e8eef6);
+}
+
+.staff-photo-empty img {
+    width: 45%;
+    height: auto;
+    opacity: 0.85;
+}
+
+.staff-body h4 {
+    font-size: 1.35rem;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.staff-role {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: white;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    vertical-align: middle;
+}
+
+.staff-facts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+}
+
+.staff-facts li {
+    padding: 4px 0;
+    color: var(--text-light);
+}
+
+.staff-facts i {
+    color: var(--primary-color);
+    width: 20px;
+    margin-right: 4px;
+}
+
+.staff-tagline {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* ===== 대표세무사 저서 (2026-09-24) ===== */
+.books-detail {
+    margin-top: 60px;
+}
+
+.books-subtitle {
+    color: var(--text-light);
+    margin: -10px 0 25px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.book-card {
+    display: block;
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+.book-card img {
+    width: 100%;
+    aspect-ratio: 0.72;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: block;
+}
+
+.book-card:hover img {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.book-title {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.book-meta {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+@media (max-width: 992px) {
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .staff-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .staff-photo {
+        margin: 0 auto;
+    }
+}
+
 /* ===== 서비스 섹션 ===== */
 .services {
     background: var(--bg-light);
