@@ -51,7 +51,7 @@ if (mobileMenuBtn && nav) {
 // 모바일: 한 페이지 스크롤. 메뉴를 누르면 그 위치로 바로 이동한다.
 const PAGED_MIN_WIDTH = 992;   // 2026-09-24 확정: PC(992px 이상)는 페이지형, 모바일은 스크롤형. 전부 스크롤형으로 하려면 99999.
 const VIEW_GROUPS = {
-    'home': ['home'],
+    'home': ['home', 'worries'],   // 홈 화면 = 첫 화면 + 고민 말풍선
     'about': ['about'],
     'services': ['services'],
     'faq': ['faq'],

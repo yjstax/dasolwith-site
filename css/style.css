@@ -606,6 +606,143 @@ body.paged section.active.page-top:not(.hero) {
 }
 
 
+/* ===== 홈: 이런 고민 하고 계신가요 (2026-09-24) ===== */
+.worries {
+    background: #f5f7fa;
+    overflow: hidden;
+}
+
+.worries-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.worries-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: #8a94a6;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.worries-text h2 {
+    font-size: 2.6rem;
+    line-height: 1.25;
+    color: var(--text-dark);
+    margin-bottom: 22px;
+}
+
+.worries-sub {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.worries-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-kakao {
+    background: #fee500;
+    color: #191919;
+}
+
+.btn-kakao:hover {
+    background: #f5dc00;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 말풍선이 위로 흐르는 영역 */
+.worries-marquee {
+    position: relative;
+    height: 440px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+}
+
+.worries-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    animation: worries-scroll 34s linear infinite;
+}
+
+.worries-marquee:hover .worries-list {
+    animation-play-state: paused;
+}
+
+.worries-list li {
+    background: white;
+    border-radius: 16px;
+    padding: 16px 22px;
+    margin: 0 0 16px;
+    width: 88%;
+    box-shadow: 0 6px 18px rgba(20, 40, 80, 0.08);
+    color: #333;
+    line-height: 1.6;
+}
+
+.worries-list li b {
+    color: var(--primary-color);
+}
+
+.worries-list .worry-r {
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.worries-list .worry-l {
+    border-bottom-left-radius: 4px;
+}
+
+@keyframes worries-scroll {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .worries-list {
+        animation: none;
+    }
+    .worries-list[aria-hidden="true"] {
+        display: none;
+    }
+    .worries-marquee {
+        height: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .worries-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .worries-text h2 {
+        font-size: 2rem;
+    }
+    .worries-marquee {
+        height: 360px;
+    }
+}
+
 /* ===== 세무사 소개 카드 (2026-09-24, 사진 + 항목 표) ===== */
 .pro-card {
     display: grid;
