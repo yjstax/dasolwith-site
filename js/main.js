@@ -46,27 +46,63 @@ if (mobileMenuBtn && nav) {
     });
 }
 
-// ===== 메뉴 클릭 시 해당 섹션으로 바로 이동 =====
+// ===== 페이지형 화면 전환 (2026-09-24) =====
+// 메뉴를 누르면 그 부분만 보이고 나머지는 숨긴다. 파일은 하나지만 페이지가 나뉜 것처럼 보인다.
+const VIEW_GROUPS = {
+    'home': ['home'],
+    'about': ['about'],
+    'services': ['services'],
+    'faq': ['faq'],
+    'tax-news': ['tax-news', 'tax-calendar'],   // 조세뉴스 화면에 세무일정도 같이
+    'contact': ['contact'],
+    'directions': ['directions']
+};
+const pageSections = document.querySelectorAll('section[id]');
+
+function resolveView(id) {
+    if (VIEW_GROUPS[id]) return id;
+    for (const key in VIEW_GROUPS) {
+        if (VIEW_GROUPS[key].includes(id)) return key;
+    }
+    return 'home';
+}
+
+function showView(rawId, push) {
+    const viewId = resolveView((rawId || '').replace('#', ''));
+    const visible = VIEW_GROUPS[viewId];
+
+    document.documentElement.style.setProperty('--header-h', (header ? header.offsetHeight : 80) + 'px');
+    document.body.classList.toggle('view-home', viewId === 'home');
+
+    pageSections.forEach(section => {
+        section.classList.toggle('active', visible.includes(section.id));
+        section.classList.toggle('page-top', section.id === visible[0]);
+    });
+
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + viewId);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
+
+    if (push) {
+        history.pushState({ view: viewId }, '', viewId === 'home' ? location.pathname : '#' + viewId);
+    }
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href');
-        
         if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const headerHeight = header ? header.offsetHeight : 80;
-            const targetPosition = targetElement.offsetTop - headerHeight;
-            
-            // 메뉴 클릭 시 스크롤 움직임 없이 바로 이동 (페이지가 바뀌는 느낌, 2026-09-23 사용자 요청)
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'auto'
-            });
-        }
+        if (!document.querySelector(targetId)) return;
+        e.preventDefault();
+        showView(targetId, true);
     });
 });
+
+window.addEventListener('popstate', () => showView(location.hash, false));
+document.body.classList.add('paged');
+showView(location.hash, false);
 
 // ===== 스크롤 애니메이션 =====
 const observerOptions = {
@@ -158,42 +194,8 @@ statNumbers.forEach(stat => {
     statObserver.observe(stat);
 });
 
-// ===== 활성 네비게이션 링크 표시 =====
-const sections = document.querySelectorAll('section[id]');
-
-const highlightNavigation = () => {
-    const scrollY = window.pageYOffset;
-    
-    // 현재 스크롤 위치에서 가장 가까운 섹션 찾기
-    let currentSection = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
-        const sectionHeight = section.offsetHeight;
-        
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            currentSection = section.getAttribute('id');
-        }
-    });
-    
-    // 모든 링크에서 active 제거
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        
-        // 현재 섹션에 해당하는 링크에만 active 추가
-        if (link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-        }
-    });
-};
-
-window.addEventListener('scroll', highlightNavigation);
-
-// ===== 초기 로드 시 애니메이션 =====
-window.addEventListener('load', () => {
-    // 히어로 섹션 애니메이션은 CSS로 처리됨
-    highlightNavigation();
-});
+// ===== 활성 메뉴 표시 =====
+// 페이지형 전환에서는 showView()가 메뉴 활성 상태를 정한다. 스크롤 위치로 바꾸지 않는다.
 
 // ===== FAQ 아코디언 =====
 document.addEventListener('DOMContentLoaded', () => {

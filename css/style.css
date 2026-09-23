@@ -270,6 +270,16 @@ section {
     padding: var(--section-padding);
 }
 
+/* ===== 페이지형 화면 전환 (2026-09-24): 활성 섹션만 보인다 ===== */
+body.paged section[id]:not(.active) {
+    display: none;
+}
+
+/* 고정 헤더에 가려지지 않도록, 홈(히어로) 외 화면의 첫 섹션은 헤더 높이만큼 내린다 */
+body.paged section.active.page-top:not(.hero) {
+    padding-top: calc(var(--header-h, 80px) + 40px);
+}
+
 .section-header {
     text-align: center;
     margin-bottom: 60px;
