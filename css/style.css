@@ -921,6 +921,12 @@ body.paged section.active.page-top:not(.hero) {
     color: #444;
 }
 
+.pro-rows dd a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 @media (max-width: 768px) {
     .pro-card {
         grid-template-columns: 1fr;
