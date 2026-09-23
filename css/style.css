@@ -175,31 +175,29 @@ a {
 
 /* ===== 히어로 섹션 ===== */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, #14335f 0%, var(--primary-color) 60%, var(--secondary-color) 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
     position: relative;
     margin-top: 80px;
     color: white;
+    overflow: hidden;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.hero-inner {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-    background-size: cover;
-    opacity: 0.1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 60px;
+    align-items: center;
 }
 
 .hero-content {
-    text-align: center;
+    max-width: 620px;
     position: relative;
-    z-index: 1;
 }
 
 .hero-title {
@@ -213,19 +211,94 @@ a {
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 40px;
+    font-size: 1.2rem;
+    margin-bottom: 28px;
     opacity: 0.95;
     font-weight: 300;
+    line-height: 1.7;
     animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.hero-trust {
+    display: flex;
+    gap: 36px;
+    margin-bottom: 32px;
+    animation: fadeInUp 1s ease 0.3s backwards;
+}
+
+.hero-trust div b {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-trust div span {
+    font-size: 0.85rem;
+    opacity: 0.85;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    gap: 16px;
     flex-wrap: wrap;
     animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+/* 대표세무사 사진 카드 */
+.hero-photo {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    border: 4px solid rgba(255, 255, 255, 0.25);
+    animation: fadeInUp 1s ease 0.3s backwards;
+}
+
+.hero-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-photo-badge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 40px 20px 16px;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 30, 60, 0.85) 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 992px) {
+    .hero-inner {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 60px 0 50px;
+    }
+    .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    .hero-trust {
+        gap: 22px;
+    }
+    .hero-photo {
+        width: min(280px, 80%);
+        margin: 0 auto;
+    }
 }
 
 /* ===== 버튼 스타일 ===== */
