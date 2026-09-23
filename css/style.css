@@ -102,6 +102,8 @@ a {
     display: flex;
     align-items: center;
     gap: 12px;
+    text-decoration: none;   /* 로고는 홈으로 가는 링크 */
+    cursor: pointer;
 }
 
 .logo-image {
