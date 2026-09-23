@@ -280,24 +280,29 @@ a {
     }
 }
 
+/* 모바일: 사진 카드 없이 예전처럼 가운데 정렬 문구만 (2026-09-24 사용자 요청) */
 @media (max-width: 768px) {
     .hero {
-        min-height: auto;
-        padding: 60px 0 50px;
+        min-height: calc(100vh - 80px);
+        padding: 40px 0;
     }
     .hero-inner {
         grid-template-columns: 1fr;
-        gap: 36px;
+        gap: 0;
     }
     .hero-content {
         max-width: 100%;
+        text-align: center;
     }
     .hero-trust {
-        gap: 22px;
+        gap: 28px;
+        justify-content: center;
+    }
+    .hero-buttons {
+        align-items: center;
     }
     .hero-photo {
-        width: min(280px, 80%);
-        margin: 0 auto;
+        display: none;
     }
 }
 
