@@ -2394,18 +2394,18 @@ section {
 
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    align-items: stretch;
 }
 
 .news-card {
     background: var(--bg-white);
     border: 2px solid var(--border-color);
     border-radius: 12px;
-    padding: 25px;
+    overflow: hidden;
     display: flex;
-    gap: 20px;
-    align-items: center;
+    flex-direction: column;
     transition: var(--transition);
 }
 
@@ -2419,83 +2419,156 @@ section {
     display: none;
 }
 
-.news-icon {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* PDF 첫 장 미리보기 */
+.news-preview {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    background: var(--bg-gray);
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
 }
 
-.news-icon i {
-    font-size: 2rem;
+.news-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover .news-preview img {
+    transform: scale(1.03);
+}
+
+.news-preview-hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    padding: 6px 12px;
+    background: rgba(26, 77, 143, 0.9);
     color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 50px;
+    opacity: 0;
+    transition: var(--transition);
 }
 
-.news-content {
+.news-card:hover .news-preview-hint {
+    opacity: 1;
+}
+
+.news-body {
+    padding: 20px 22px 22px;
+    display: flex;
+    flex-direction: column;
     flex: 1;
 }
 
-.news-content h3 {
+.news-body h3 {
     font-size: 1.125rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .news-date {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--primary-color);
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .news-desc {
     font-size: 0.9rem;
     color: var(--text-gray);
     line-height: 1.5;
-    margin: 0;
+    margin: 0 0 18px;
+    flex: 1;
 }
 
 .btn-download {
-    flex-shrink: 0;
+    align-self: flex-start;
     padding: 10px 20px;
     font-size: 0.9rem;
     white-space: nowrap;
-    cursor: pointer;
-    pointer-events: auto;
-    position: relative;
-    z-index: 10;
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-download i {
     margin-right: 5px;
 }
 
-/* 반응형 - 조세뉴스 */
+/* 매월 받아보기 안내 카드 */
+.news-card-cta {
+    background: linear-gradient(135deg, #fff8e6 0%, #ffedc2 100%);
+    border: 2px dashed var(--accent-color);
+    padding: 30px 24px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.news-cta-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.news-card-cta h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #7a5a00;
+    margin-bottom: 10px;
+}
+
+.news-card-cta p {
+    color: #7a5a00;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.btn-cta {
+    background: var(--accent-color);
+    color: var(--text-dark);
+    padding: 12px 25px;
+    font-weight: 600;
+}
+
+.btn-cta:hover {
+    background: #c19a2a;
+    color: var(--text-dark);
+}
+
 @media (max-width: 992px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
     .news-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
-    .news-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .news-icon {
-        margin: 0 auto;
-    }
-    
     .btn-download {
         width: 100%;
+        text-align: center;
     }
-    
+
     .filter-btn {
         padding: 10px 20px;
         font-size: 0.9rem;
