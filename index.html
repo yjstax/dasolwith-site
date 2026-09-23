@@ -581,23 +581,19 @@
                 </div>
                 
                 <div class="map-wrapper">
-                    <!-- 네이버 지도 -->
-                    <div id="naverMap" style="width:100%; height:450px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                        <iframe 
-                            src="https://map.naver.com/p/search/%EC%84%B8%EB%AC%B4%EC%82%AC%EA%B9%80%EA%B2%B8%EC%88%9C%EC%82%AC%EB%AC%B4%EC%86%8C/place/11571876?placePath=?entry=pll&searchType=place&c=15.00,0,0,0,dh" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0; border-radius: 15px;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
-                    </div>
+                    <!-- 사무실 위치 지도 (카카오맵 정지 이미지, 클릭하면 카카오맵으로 이동) -->
+                    <a id="officeMap" class="map-static" href="https://map.kakao.com/link/map/328514730" target="_blank" rel="noopener" aria-label="카카오맵에서 세무법인 다솔위드 위치 보기">
+                        <img src="https://staticmap.kakao.com/map/mapservice?FORMAT=PNG&SCALE=2.5&MX=476112&MY=1118290&S=0&IW=1000&IH=500&LANG=0&COORDSTM=WCONGNAMUL&logo=kakao_logo"
+                             alt="세무법인 다솔위드 위치 지도 - 서울 영등포구 선유동1로 33 성도빌딩 1층" loading="lazy">
+                        <span class="map-pin"><i class="fas fa-map-marker-alt"></i></span>
+                        <span class="map-label">세무법인 다솔위드 · 성도빌딩 1층</span>
+                    </a>
                     
                     <div class="map-buttons">
-                        <a href="https://map.naver.com/p/search/%EC%84%B8%EB%AC%B4%EC%82%AC%EA%B9%80%EA%B2%B8%EC%88%9C%EC%82%AC%EB%AC%B4%EC%86%8C" target="_blank" class="map-btn">
+                        <a href="https://map.naver.com/p/entry/place/1239954763" target="_blank" rel="noopener" class="map-btn">
                             <i class="fas fa-map-marked-alt"></i> 네이버 지도로 보기
                         </a>
-                        <a href="https://map.kakao.com/link/search/%EC%84%B8%EB%AC%B4%EC%82%AC%EA%B9%80%EA%B2%B8%EC%88%9C%EC%82%AC%EB%AC%B4%EC%86%8C" target="_blank" class="map-btn">
+                        <a href="https://map.kakao.com/link/map/328514730" target="_blank" rel="noopener" class="map-btn">
                             <i class="fas fa-map"></i> 카카오맵으로 보기
                         </a>
                     </div>
