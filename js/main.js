@@ -46,7 +46,7 @@ if (mobileMenuBtn && nav) {
     });
 }
 
-// ===== 부드러운 스크롤 =====
+// ===== 메뉴 클릭 시 해당 섹션으로 바로 이동 =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -59,9 +59,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             const headerHeight = header ? header.offsetHeight : 80;
             const targetPosition = targetElement.offsetTop - headerHeight;
             
+            // 메뉴 클릭 시 스크롤 움직임 없이 바로 이동 (페이지가 바뀌는 느낌, 2026-09-23 사용자 요청)
             window.scrollTo({
                 top: targetPosition,
-                behavior: 'smooth'
+                behavior: 'auto'
             });
         }
     });
