@@ -190,7 +190,7 @@ a {
     z-index: 2;
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-columns: minmax(0, 1fr) 340px;
     gap: 60px;
     align-items: center;
 }
