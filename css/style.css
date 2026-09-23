@@ -299,7 +299,10 @@ a {
         justify-content: center;
     }
     .hero-buttons {
-        align-items: center;
+        display: none;   /* 모바일은 바로 아래 고민 섹션과 떠 있는 버튼에 상담 버튼이 있어 중복 제거 */
+    }
+    .hero-trust {
+        margin-bottom: 0;
     }
     .hero-photo {
         display: none;
@@ -933,8 +936,26 @@ body.paged section.active.page-top:not(.hero) {
     .pro-card {
         grid-template-columns: 1fr;
     }
+    .pro-photo {
+        width: 160px;
+        margin: 24px auto 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+    }
     .pro-photo-empty {
-        min-height: 300px;
+        min-height: 0;
+        height: 200px;
+    }
+    .pro-photo-name {
+        left: 12px;
+        bottom: 12px;
+    }
+    .pro-photo-name strong {
+        font-size: 1.1rem;
+    }
+    .pro-photo-name span {
+        font-size: 0.75rem;
     }
     .pro-body {
         padding: 24px 20px;

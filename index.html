@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css?v=20260924l">
+    <link rel="stylesheet" href="css/style.css?v=20260924m">
 </head>
 <body>
     <!-- 헤더 & 네비게이션 -->
@@ -133,7 +133,11 @@
             <!-- 대표세무사 카드: 사진 + 한 줄 소개 + 항목 표 (2026-09-24 카드형으로 정리) -->
             <div class="pro-card">
                 <div class="pro-photo">
-                    <img src="images/representative-tv.jpg" alt="대표세무사 김겸순">
+                    <!-- 휴대폰에서는 증명사진, PC에서는 강의 사진 -->
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="images/representative.jpg">
+                        <img src="images/representative-tv.jpg" alt="대표세무사 김겸순">
+                    </picture>
                     <div class="pro-photo-name">
                         <strong>김겸순</strong>
                         <span>대표세무사</span>
@@ -690,7 +694,7 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="js/main.js?v=20260924l"></script>
-    <script src="js/tax-calendar.js?v=20260924l"></script>
+    <script src="js/main.js?v=20260924m"></script>
+    <script src="js/tax-calendar.js?v=20260924m"></script>
 </body>
 </html>
